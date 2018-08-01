@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>BBC's top films of the 21st century: How directors' origins shaped the results? </title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+<!-- 
+THESE ARE CALLS TO DIFFERENT EXTERNAL FILES
+LEAFLET HAS A CSS STYLESHEET THAT YOU NEED
+THE NEXT IS THE JAVASCRIPT LIBRARY FOR LEAFLET
+AND THE FINAL ONE IS THE LIBRARY FOR JQUERY, WHICH I USE FOR THE PULLDOWN MENU.
+ -->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- 
+THESE ARE CSS STYLES WHAT YOU SHOULD FREELY PLAY WITH
+THE STYLES THAT BEGIN WITH # RELATE TO IDS, THE ONES THAT BEGIN WITH . RELATE TO CLASSES
+WHEN YOU GOT EVERYTHING WORKING YOU CAN PLAY WITH THESE AND ADD TO THESE 
+TO MAKE YOUR FONTS AND LAYOUTS NICE AND LOVELY
+ -->
+
+	<style>
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+	#map {position: absolute; top: 20px; left: 20px; width: 1300px; height: 750px; z-index:1; }
+	#articlePlace {position: absolute; padding: 6px 8px; font: 18px/17px "Trebuchet MS",  cursive, sans-serif;font-style: italic;font-weight: bold;line-height: 1.0;  left: 80px; bottom: 60px; width: 550px; height: 65px; overflow: scroll;
+    overflow-x: hidden; z-index:5;box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; background:#ffeeb9;opacity: 10} 
+#select-menu{position: absolute; left: 80px; top: 30px; font: 17px/16px "Trebuchet MS", cursive, sans-serif;  z-index:10;color: #555;background:rgba(255,255,255,0.8)} 
+.info { text-align: right;padding: 6px 8px; font: 17px/16px "Trebuchet MS", cursive, sans-serif;color: 555x; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }.legend h4 { margin: 0 0 5px; color: #777; }</style>
+</head>
+
+<!-- THE BODY OF THE HTML BEGINS HERE -->
+
+<body>
+
+<!-- 
+HERE IS MY VERY UNBEAUTIFUL BUT FUNCTIONALLY AWESOME DROP-DOWN MENU
+THE ID select–menu IS USED BY THE JQUERY FUNCTION WAY DOWN AT THE BOTTOM
+THIS HTML SETS UP THE PULLDOWN MENU
+IF YOU HAVE MULTIPLE GROUPS DID JQUERY AT THE BOTTOM 
+WILL UPDATE THE SELECT MENU FOR YOU
+ -->
+
+<div id="dropdown">
+<select id="select-menu">
+            
+             <option value="0">Select critics' continent</option>
+
+ </select>
+</div>
+
+ <!-- 
+THE TWO DIVS BELOW ARE SUPER IMPORTANT:
+THEY ARE WHERE THE MAP WILL GO, AND YOUR ARTICLE TEXT WILL GO
+YOU WILL CERTAINLY WANT TO STYLE THESE, BOTH THEIR PLACEMENT AND CONTENT 
+THE MAP SHOULD BE EMPTY.
+WHATEVER INTRODUCTORY TEXT YOU WANT CAN GO INTO THE ARTICLEPLACE DIV
+ -->
+
+<div id='map'></div>
+<div id='articlePlace'>   Click on any director's birthplace to find out more about the directors of the top films of the 21st century! </div> 
+
+<!-- 
+THIS IS WHERE THE BROWSER LOADS IN YOUR GEOJSON INFORMATION
+MAKING IN A JAVASCRIPT FILE .js, RATHER THAN A GEOJSON FILE
+ALLOWS YOU TO LOAD IT LOCALLY WITHOUT DEALING WITH SETTING UP SERVERS ON YOUR MACHINE.
+ -->
+ 
+<script type="text/javascript" src="bbclocgeodirectors-data2.js"></script>
+
+<!-- 
+HERE BEGINS ALL THE SCRIPT THAT SETS UP THE MAP 
+ALL THE COMMENTS FROM HERE WE'LL BE IN JAVASCRIPT COMMENTS //
+ -->
+
+<script type="text/javascript">
+
+// THIS INITIALIZES THE FIRST VARIABLE CALLED MAP
+// THERE IS NO SET VIEW HERE, BECAUSE WE ARE USING FITBOUNDS()
+// TO AUTOMATICALLY CENTER AND ZOOM ON OUR POINTS
+
+	var map = L.map('map')
+
+// THIS SETS THE BASE LAYER OF THE MAP -- USING BACKGROUND TILES
+
+
+
+var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey={apikey}', {
+	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	apikey: 'c5b12360af19471a9b1e59028e6f9148',
+	maxZoom: 22
+}).addTo(map);
+
+
+// THESE LINES ADD THE LITTLE INFO WINDOW IN THE UPPER RIGHT CORNER 
+// (YOU CAN CHANGE WHERE GOES BY EDITING THE STYLES FOR #INFO)
+// NOTE THAT "L.CONTROL()" -- MEANS THAT THIS IS A LEAFLET METHOD
+// FOR CREATING A CONTROL WINDOW.
+
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>Directors of the best films of the 21st century </h4>' +  (props ?
+			props.headline
+			: "Hover to find out who was born where");
+	};
+
+	info.addTo(map);
+
+
+
+// HERE ARE YOUR STYLES FOR THE SHAPES--THERE'RE A LOT OF DIFFERENT CONTROLS
+// EVERYTHING THAT IS SET AS A VALUE MEANS THAT THAT'S STYLE IS FOR EVERY SINGLE POINT
+// THESE LINES:
+// 			radius: feature.properties.radius,
+// 			fillColor: feature.properties.color
+// SETS THE COLOR AND RADIUS BASED ON WHAT YOU PUT IN YOUR GEOJSON DOC "color:" and "radius:"
+// YOU COULD THEORETICALLY DO THAT FOR EVERY SINGLE ONE OF THE STYLES
+
+	function style(feature) {
+		return {
+			weight: 2,
+			opacity: 1,
+			color: 'black',
+			fillOpacity: 0.7,
+			radius: 6.5,
+			fillColor: feature.properties.color
+		};
+	}
+// THIS FUNCTION CONTROLS WHAT HAPPENS WHEN YOU HOVER OVER A SHAPE
+// IT CHANGES SOME OF THE STYLES (HIGHLIGHTING THAT SHAPE)
+// AND IT ALSO UPDATES THE TEXT INSIDE THE headline INFOBOX
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 3,
+			color: 'white',
+			fillOpacity: 1
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+//legend
+function getColor(d) {
+		return d == 1 ? '#f2e432' :
+				d == 2  ? '#f1ad30' :
+				d == 3  ? '#f16026' :
+				d == 4  ? '#d6312f' :
+				d == 5   ? '#751e2c' :
+				d == 6   ? '#46121a' :
+				d >= 7   ? '#2d1e2e' :
+							'#FFEDA0';
+	}
+	var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+
+	var div = L.DomUtil.create('div', 'info legend'),
+		grades = [1,2,3,4,5,6,7],
+		labels = [],
+		to;
+
+	for (var i = 0; i < grades.length; i++) {
+		
+		to = grades[i];
+
+		labels.push(
+			'<i style="background:' + getColor(to) + '"></i> ' +
+			(to ? + to : '+'));
+	}
+
+	div.innerHTML = '<h4>Votes</h4>'+labels.join('<br>');
+	return div;
+};
+
+
+legend.addTo(map);
+
+
+
+// THIS FUNCTION CHANGES THE ARTICLE TEXT ON THE RIGHT SIDE OF THE PAGE
+// IT IS CALLED WHENEVER YOU CLICK ON A SHAPE
+
+	function updateArticle(e) {
+		var layer = e.target;
+		var props = layer.feature.properties;
+		var articleDIV = document.getElementById("articlePlace");
+		articleDIV.innerHTML = props.article
+	}
+
+// THIS PART IS A LITTLE COMPLICATED
+// IT IS CREATING A LAYER FOR YOUR MAP CALLED points
+// IT IS SETTING ALL OF THE ACTIONS THAT ARE GOING TO HAPPEN WHEN YOU HOVER AND CLICK ON YOUR POINTS
+// IT CONTROLS ROLLOVERS, CLICKS, AND CHANGES IN THOSE
+// NOTE THE fitBounds() AT THE END -- THAT CENTERS AND ZOOMS THE MAP BASED ON YOUR POINTS
+
+	var points;
+
+	function resetHighlight(e) {
+		points.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+	map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: updateArticle
+		});
+	}
+
+	points = L.geoJson(infoData, {
+		style: style,
+    pointToLayer: function(feature, latlng) {
+
+        return new L.CircleMarker(latlng);
+
+    },
+    onEachFeature: onEachFeature
+	}).addTo(map);
+
+// THIS CENTERS YOUR MAP AND COMES UP WITH THE ZOOM FOR YOU
+// THE PADDING PUTS A LITTLE SPACE BETWEEN THE BOUNDARIES OF THE POINTS AND THE EDGE OF THE MAP
+map.fitBounds(points.getBounds(), {padding: [120,120]});
+// FINALLY, THIS INITIALIZES THE DYNAMIC OBJECT FOR GROUPS
+// SEE THE JQUERY BELOW FOR THE UPDATING OF GROUPS
+	var groupsObj = {};
+
+</script>
+<script>
+// BELOW IS A JQUERY FUNCTION THAT THE TEXT CHANGES IN THE DROP-DOWN MENU
+// AND EXECUTES CHANGES ON THE MAP BASED ON THE GROUP ID OF YOUR SHAPES
+
+	$(document).ready(function () {
+			points.eachLayer(function (layer) {
+			groupsObj[layer.feature.properties.group_id] = layer.feature.properties.group_name;
+			})
+			
+		$.each(groupsObj, function(key, value) {   
+		 $('#select-menu')
+			 .append($("<option></option>")
+						.attr("value",key)
+						.text(value)); 
+			});
+
+	    $('#select-menu').change(function () {
+		var selectedGroup = $('#select-menu').val();
+		
+		points.eachLayer(function (layer) {
+			if (selectedGroup == 0)
+		    {
+		    	map.addLayer(layer);
+		    } else if (layer.feature.properties.group_id != selectedGroup) {
+			// If the layer's id is different from the selected one, remove it from the map
+			map.removeLayer(layer);
+		    }
+		    else {
+			// Otherwise add it do the map
+			map.addLayer(layer);
+		    }
+		});
+
+	});
+	});
+</script>
+
+
+</body>
+</html>
