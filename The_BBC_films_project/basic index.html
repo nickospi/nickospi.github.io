@@ -19,10 +19,10 @@
     width: 0px; 
     background: transparent;  
 }
-	#map {position: absolute; top: 20px; left: 20px; width: 1300px; height: 750px; z-index:1; }
+	#map {position: top; top: 20px; left: 20px; width: 1300px; height: 750px; z-index:1; }
 	#articlePlace {position: absolute; padding: 6px 8px; font: 18px/17px "Trebuchet MS",  cursive, sans-serif;font-style: italic;line-height: 1.0;  left: 80px; bottom: 60px; width: 550px; height: 65px; overflow: scroll;
     overflow-x: hidden; z-index:5;box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; background: rgb(247, 247, 77);opacity: 10} 
-#select-menu{position: absolute; left: 80px; top: 30px; font: 17px/16px "Trebuchet MS", cursive, sans-serif;  z-index:10;color: #555;background:rgba(255,255,255,0.8)} 
+#select-menu{position: absolute; left: 80px; top: 80px; font: 17px/16px "Trebuchet MS", cursive, sans-serif;  z-index:10;color: #555;background:rgba(255,255,255,0.8)} 
 .info { padding: 6px 8px;text-align: right; font: 17px/16px "Trebuchet MS", cursive, sans-serif;color: 555x; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }.legend h4 { margin: 0 0 5px; color: #777; }</style>
 </head>
@@ -30,7 +30,10 @@
 
 
 <body>
+	<div id='articlePlace'>  <p> BBC's top films of the 21st century: How important was film location?  <br> 	How did this happen? This is a Python project. Data was gathered by scraping BBC's best films of the 21st century list and Imdb.com. See the code <a href="https://github.com/nickospi/python ">here. <br> </a>
+	</div> 
 
+	
 
 
 <div id="dropdown">
@@ -224,7 +227,6 @@ map.fitBounds(points.getBounds(), {padding: [120,120]});
 	});
 </script>
 
-How did this happen? See the code '&copy; <a href="https://github.com/nickospi/python ">here. </a>
 
 </body>
 </html>
