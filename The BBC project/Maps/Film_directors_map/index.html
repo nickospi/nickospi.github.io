@@ -6,28 +6,17 @@
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-<!-- 
-THESE ARE CALLS TO DIFFERENT EXTERNAL FILES
-LEAFLET HAS A CSS STYLESHEET THAT YOU NEED
-THE NEXT IS THE JAVASCRIPT LIBRARY FOR LEAFLET
-AND THE FINAL ONE IS THE LIBRARY FOR JQUERY, WHICH I USE FOR THE PULLDOWN MENU.
- -->
+
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!-- 
-THESE ARE CSS STYLES WHAT YOU SHOULD FREELY PLAY WITH
-THE STYLES THAT BEGIN WITH # RELATE TO IDS, THE ONES THAT BEGIN WITH . RELATE TO CLASSES
-WHEN YOU GOT EVERYTHING WORKING YOU CAN PLAY WITH THESE AND ADD TO THESE 
-TO MAKE YOUR FONTS AND LAYOUTS NICE AND LOVELY
- -->
+
 
 	<style>
 ::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
+    width: 0px; 
+    background: transparent; 
 }
 	#map {position: absolute; top: 20px; left: 20px; width: 1300px; height: 750px; z-index:1; }
 	#articlePlace {position: absolute; padding: 6px 8px; font: 18px/17px "Trebuchet MS",  cursive, sans-serif;font-style: italic;font-weight: bold;line-height: 1.0;  left: 80px; bottom: 60px; width: 550px; height: 65px; overflow: scroll;
@@ -37,17 +26,11 @@ TO MAKE YOUR FONTS AND LAYOUTS NICE AND LOVELY
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }.legend h4 { margin: 0 0 5px; color: #777; }</style>
 </head>
 
-<!-- THE BODY OF THE HTML BEGINS HERE -->
+
 
 <body>
 
-<!-- 
-HERE IS MY VERY UNBEAUTIFUL BUT FUNCTIONALLY AWESOME DROP-DOWN MENU
-THE ID select–menu IS USED BY THE JQUERY FUNCTION WAY DOWN AT THE BOTTOM
-THIS HTML SETS UP THE PULLDOWN MENU
-IF YOU HAVE MULTIPLE GROUPS DID JQUERY AT THE BOTTOM 
-WILL UPDATE THE SELECT MENU FOR YOU
- -->
+
 
 <div id="dropdown">
 <select id="select-menu">
@@ -57,39 +40,19 @@ WILL UPDATE THE SELECT MENU FOR YOU
  </select>
 </div>
 
- <!-- 
-THE TWO DIVS BELOW ARE SUPER IMPORTANT:
-THEY ARE WHERE THE MAP WILL GO, AND YOUR ARTICLE TEXT WILL GO
-YOU WILL CERTAINLY WANT TO STYLE THESE, BOTH THEIR PLACEMENT AND CONTENT 
-THE MAP SHOULD BE EMPTY.
-WHATEVER INTRODUCTORY TEXT YOU WANT CAN GO INTO THE ARTICLEPLACE DIV
- -->
+
 
 <div id='map'></div>
 <div id='articlePlace'>   Click on any director's birthplace to find out more about the directors of the top films of the 21st century! </div> 
 
-<!-- 
-THIS IS WHERE THE BROWSER LOADS IN YOUR GEOJSON INFORMATION
-MAKING IN A JAVASCRIPT FILE .js, RATHER THAN A GEOJSON FILE
-ALLOWS YOU TO LOAD IT LOCALLY WITHOUT DEALING WITH SETTING UP SERVERS ON YOUR MACHINE.
- -->
  
 <script type="text/javascript" src="bbclocgeodirectors-data2.js"></script>
 
-<!-- 
-HERE BEGINS ALL THE SCRIPT THAT SETS UP THE MAP 
-ALL THE COMMENTS FROM HERE WE'LL BE IN JAVASCRIPT COMMENTS //
- -->
 
 <script type="text/javascript">
 
-// THIS INITIALIZES THE FIRST VARIABLE CALLED MAP
-// THERE IS NO SET VIEW HERE, BECAUSE WE ARE USING FITBOUNDS()
-// TO AUTOMATICALLY CENTER AND ZOOM ON OUR POINTS
-
 	var map = L.map('map')
 
-// THIS SETS THE BASE LAYER OF THE MAP -- USING BACKGROUND TILES
 
 
 
@@ -99,11 +62,6 @@ var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pion
 	maxZoom: 22
 }).addTo(map);
 
-
-// THESE LINES ADD THE LITTLE INFO WINDOW IN THE UPPER RIGHT CORNER 
-// (YOU CAN CHANGE WHERE GOES BY EDITING THE STYLES FOR #INFO)
-// NOTE THAT "L.CONTROL()" -- MEANS THAT THIS IS A LEAFLET METHOD
-// FOR CREATING A CONTROL WINDOW.
 
 	var info = L.control();
 
@@ -123,13 +81,6 @@ var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pion
 
 
 
-// HERE ARE YOUR STYLES FOR THE SHAPES--THERE'RE A LOT OF DIFFERENT CONTROLS
-// EVERYTHING THAT IS SET AS A VALUE MEANS THAT THAT'S STYLE IS FOR EVERY SINGLE POINT
-// THESE LINES:
-// 			radius: feature.properties.radius,
-// 			fillColor: feature.properties.color
-// SETS THE COLOR AND RADIUS BASED ON WHAT YOU PUT IN YOUR GEOJSON DOC "color:" and "radius:"
-// YOU COULD THEORETICALLY DO THAT FOR EVERY SINGLE ONE OF THE STYLES
 
 	function style(feature) {
 		return {
@@ -141,9 +92,6 @@ var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pion
 			fillColor: feature.properties.color
 		};
 	}
-// THIS FUNCTION CONTROLS WHAT HAPPENS WHEN YOU HOVER OVER A SHAPE
-// IT CHANGES SOME OF THE STYLES (HIGHLIGHTING THAT SHAPE)
-// AND IT ALSO UPDATES THE TEXT INSIDE THE headline INFOBOX
 
 	function highlightFeature(e) {
 		var layer = e.target;
@@ -161,7 +109,7 @@ var Thunderforest_Pioneer = L.tileLayer('https://{s}.tile.thunderforest.com/pion
 		info.update(layer.feature.properties);
 	}
 
-//legend
+
 function getColor(d) {
 		return d == 1 ? '#f2e432' :
 				d == 2  ? '#f1ad30' :
@@ -198,8 +146,6 @@ legend.addTo(map);
 
 
 
-// THIS FUNCTION CHANGES THE ARTICLE TEXT ON THE RIGHT SIDE OF THE PAGE
-// IT IS CALLED WHENEVER YOU CLICK ON A SHAPE
 
 	function updateArticle(e) {
 		var layer = e.target;
@@ -208,11 +154,6 @@ legend.addTo(map);
 		articleDIV.innerHTML = props.article
 	}
 
-// THIS PART IS A LITTLE COMPLICATED
-// IT IS CREATING A LAYER FOR YOUR MAP CALLED points
-// IT IS SETTING ALL OF THE ACTIONS THAT ARE GOING TO HAPPEN WHEN YOU HOVER AND CLICK ON YOUR POINTS
-// IT CONTROLS ROLLOVERS, CLICKS, AND CHANGES IN THOSE
-// NOTE THE fitBounds() AT THE END -- THAT CENTERS AND ZOOMS THE MAP BASED ON YOUR POINTS
 
 	var points;
 
@@ -243,17 +184,12 @@ legend.addTo(map);
     onEachFeature: onEachFeature
 	}).addTo(map);
 
-// THIS CENTERS YOUR MAP AND COMES UP WITH THE ZOOM FOR YOU
-// THE PADDING PUTS A LITTLE SPACE BETWEEN THE BOUNDARIES OF THE POINTS AND THE EDGE OF THE MAP
 map.fitBounds(points.getBounds(), {padding: [120,120]});
-// FINALLY, THIS INITIALIZES THE DYNAMIC OBJECT FOR GROUPS
-// SEE THE JQUERY BELOW FOR THE UPDATING OF GROUPS
+
 	var groupsObj = {};
 
 </script>
 <script>
-// BELOW IS A JQUERY FUNCTION THAT THE TEXT CHANGES IN THE DROP-DOWN MENU
-// AND EXECUTES CHANGES ON THE MAP BASED ON THE GROUP ID OF YOUR SHAPES
 
 	$(document).ready(function () {
 			points.eachLayer(function (layer) {
@@ -275,11 +211,9 @@ map.fitBounds(points.getBounds(), {padding: [120,120]});
 		    {
 		    	map.addLayer(layer);
 		    } else if (layer.feature.properties.group_id != selectedGroup) {
-			// If the layer's id is different from the selected one, remove it from the map
 			map.removeLayer(layer);
 		    }
 		    else {
-			// Otherwise add it do the map
 			map.addLayer(layer);
 		    }
 		});
@@ -287,7 +221,7 @@ map.fitBounds(points.getBounds(), {padding: [120,120]});
 	});
 	});
 </script>
-
+	How did this happen? See the code '&copy; <a href="https://github.com/nickospi/python ">here. </a>
 
 </body>
 </html>
