@@ -12,7 +12,7 @@
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
   var color = d3.scale.ordinal()
-  .domain(["industry"])
+  .domain(["Trade and business associations", "Non-governmental organisations, platforms and networks and similar","Professional consultancies"])
   .range(["#FF0000", "#009933" , "#0000FF"]);
 
 
