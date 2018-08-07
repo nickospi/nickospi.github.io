@@ -1,6 +1,7 @@
 (function () {
   var width = 1000,
     height = 700;
+    var c10 = d3.scale.category10();
 
     
   var svg = d3.select("#chart")
@@ -13,7 +14,6 @@
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
 
-  var c10 = d3.scale.category10().domain([0,4]);
 
 
   var simulation = d3.forceSimulation()
@@ -37,7 +37,7 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .style("fill", function(d){ return c10(d.industry)})
+      .attr ('fill','lightblue', 'red','green')
       .on('click', function(d){
         console.log(d)
 
