@@ -37,7 +37,7 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .attr ('fill','lightblue')
+      .attr ('fill',color.domain())
       .on('click', function(d){
         console.log(d)
 
