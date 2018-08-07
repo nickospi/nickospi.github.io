@@ -15,12 +15,14 @@
   
   function ready (error, datapoints) {
 
-    var circles = svg.selectAll (".artist")
+    var circles = svg.selectAll (".organisation_name")
       .data(datapoints)
       .enter().append('circle')
-      .attr('class', 'artist')
+      .attr('class', 'organisation_name')
       .attr('r', 10)
       .attr ('fill','lightblue')
+      .attr ("cx", 100)
+      .attr ("cy", 300)
 
   }
 
