@@ -28,7 +28,7 @@
       .enter().append('circle')
       .attr('class', 'organisation_name')
       .attr('r', function(d) {
-        return scaleSqrt(d.lobbying_costs)
+        return radiusScale(d.lobbying_costs)
       })
       .attr ('fill','lightblue')
       .attr ("cx", 100)
