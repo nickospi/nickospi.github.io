@@ -11,9 +11,7 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
-  var color = d3.scale.ordinal()
-  .domain(["Trade and business associations", "Non-governmental organisations, platforms and networks and similar","Professional consultancies"])
-  .range(["#FF0000", "#009933" , "#0000FF"]);
+
 
 
   var simulation = d3.forceSimulation()
@@ -37,7 +35,7 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .attr ('fill',color.domain())
+      .attr ('fill','lightblue')
       .on('click', function(d){
         console.log(d)
 
