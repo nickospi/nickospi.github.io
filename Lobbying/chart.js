@@ -34,9 +34,11 @@
         return radiusScale(d.lobbying_costs);
       })
       .attr ('fill','lightblue')
-      .attr ("cx", 100)
-      .attr ("cy", 300)
-    
+      .on('click', function(d){
+        console.log(d)
+
+      })
+     
     simulation.nodes(datapoints)
       .on('tick', ticked)
       
@@ -49,5 +51,5 @@
           return d.y
         })
   }
-
-}});
+}
+}) ();
