@@ -12,7 +12,7 @@
     var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
 
-  var simulation = d3.forcesimulation()
+  var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
     .force("collide", d3.forceCollide(function(d){
@@ -29,7 +29,7 @@
     var circles = svg.selectAll (".organisation_name")
       .data(datapoints)
       .enter().append('circle')
-      .attr('class', 'organisation_name')
+      .attr('class', "organisation_name")
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
@@ -44,7 +44,7 @@
       
     function ticked() {
       circles
-        .attr('cx', function (d) {
+        .attr("cx", function (d) {
           return d.x
         })
         .attr("cy", function (d) {
