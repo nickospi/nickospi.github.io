@@ -13,7 +13,7 @@
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
 
-  var c10 = d3.scale.category10();
+  var c10 = d3.scale.category10().domain([0,4]);
 
 
   var simulation = d3.forceSimulation()
