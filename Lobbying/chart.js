@@ -37,7 +37,7 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .style("fill", function(d){ return c10(d.industry)})
+      .style("fill", function(d){ return c10(d.organisation_name)})
       .on('click', function(d){
         console.log(d)
 
