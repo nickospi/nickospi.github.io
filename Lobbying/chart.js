@@ -1,6 +1,6 @@
 (function () {
-  var width = 500,
-    height = 500;
+  var width = 1000,
+    height = 700;
 
   var svg = d3.select("#chart")
     .append("svg")
@@ -9,7 +9,11 @@
     .append("g")
     .attr("transform", "translate(0,0)")
   
-    var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
+  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
+  
+  var color = d3.scale.ordinal()
+  .domain(["industry"])
+  .range(["#FF0000", "#009933" , "#0000FF"]);
 
 
   var simulation = d3.forceSimulation()
