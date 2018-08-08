@@ -1,6 +1,6 @@
 (function () {
-  var width = 1000,
-    height = 700;
+  var width = 1200,
+    height = 1200;
 
   
   
@@ -13,7 +13,7 @@
 
 
 
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
+  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([40,160])
 
 
 
@@ -31,24 +31,6 @@
   
   function ready (error, datapoints) {
 
-
-
-
-
-
-
-
-
-
-
-
-    var labels = svg.selectAll (".organisation_name")
-      .data(datapoints)
-      .enter().append('text')
-      .attr('class', "organisation_name")
-      .text(function(d) {
-        return d.organisation_name;
-      })
 
 
     var circles = svg.selectAll (".organisation_circle")
@@ -80,6 +62,23 @@
 
       })
 
+      var labels = svg.selectAll (".organisation_name")
+      .data(datapoints)
+      .enter().append('text')
+      .attr('class', "organisation_name")
+      .text(function(d) {
+        return d.organisation_name;
+      })
+      .attr("x", width / 2)
+      .attr("y", height / 2)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#ffffff")
+      .attr('textLength',"70")
+      .attr('lengthAdjust',"spacingAndGlyphs")
+      .style('font-family', '"Open Sans", sans-serif')
+      .style('font-size', '14px')
+
+
       
 datapoints.forEach(function(d) {
   d.x = width / 2
@@ -91,11 +90,14 @@ datapoints.forEach(function(d) {
       .on('tick', ticked)
       
     function ticked() {
+      console.log(labels.length)
       circles
-        .attr("cx", function (d) {
+        .attr("cx", function (d, i) {
+          d3.select(labels.nodes()[i]).attr("x", d.x)
           return d.x
         })
-        .attr("cy", function (d) {
+        .attr("cy", function (d, i) {
+          d3.select(labels.nodes()[i]).attr("y", d.y)
           return d.y
         })
   }
