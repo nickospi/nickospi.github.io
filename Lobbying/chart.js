@@ -12,8 +12,6 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
-
-
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
@@ -21,7 +19,49 @@
       return radiusScale(d.lobbying_costs) + 1;
     
     }))
-     
+    var mouseMove = function() {
+      var infobox = d3.select(".infobox");
+      var coord = d3.svg.mouse(this)
+                  // now we just position the infobox roughly where our mouse is
+                  infobox.style("left", coord[0] + 15  + "px" );
+                  infobox.style("top", coord[1] + "px");
+    }
+  
+    var mouseOver = function(d) {
+      var bubble = d3.select(this);
+      bubble.attr("stroke", "#000")
+        .attr("stroke-width", 4 );
+      var infobox = d3.select(".infobox")
+        .style("display", "block" );
+      infobox.select("p.industry")
+        .text( d.state );
+      infobox.select("p.xdata")
+        .text( xlabel + ": " + d[xlabel] );
+      infobox.select("p.ydata")
+        .text( ylabel + ": " + d[ylabel] );
+    }
+  
+    var mouseOut = function() {
+      var infobox = d3.select(".infobox");
+      infobox.style("display", "none" )
+      var bubble = d3.select(this);
+      bubble.attr("stroke", "none")
+    }
+    
+    d3.select("svg")
+    .on("mousemove", mouseMove );
+    
+    var infobox = d3.select(".infobox");
+	infobox.append("p")
+		.attr("class", "state" );
+	infobox.append("p")
+		.attr("class", "xdata" );
+	infobox.append("p")
+    .attr("class", "ydata" );
+    
+
+    
+
   d3.queue()
     .defer(d3.csv,'lobby.csv')
     .await(ready)
@@ -56,7 +96,8 @@
       
 
       })
-     
+    .on( "mouseover", mouseOver )
+    .on( "mouseout", mouseOut );	
     simulation.nodes(datapoints)
       .on('tick', ticked)
       
