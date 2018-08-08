@@ -15,17 +15,6 @@
 
 
 
-    var node = svg.selectAll("circle")
-    .data(nodes)
-    .enter().append("g").call(force.drag);
-
-    node.append("circle")
-    .style("fill", function (d) {
-    return color(d.cluster);
-}).attr("r", function(d){return d.radius})
-
-
-
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
@@ -72,20 +61,6 @@
 
       })
 
-
-
-
-
-      node.append("text")
-    .text(function (d) {
-    return d.organisation_name;
-})
-.attr("dx", -10)
-    .attr("dy", ".35em")
-    .text(function (d) {
-    return d.organisation_name
-})
-    .style("stroke", "gray");
 
 
 
