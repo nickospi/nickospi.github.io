@@ -71,7 +71,7 @@
       .enter()
       .append("g")
       .attr("transform", function(d) {
-          return "translate(" + projection([d.organisation_name]) + ")" ;
+          return [d.organisation_name] ;
       })
 
 
