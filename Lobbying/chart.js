@@ -10,6 +10,22 @@
     .attr ('width', width)
     .append("g")
     .attr("transform", "translate(0,0)")
+
+
+
+
+
+    var node = svg.selectAll("circle")
+    .data(nodes)
+    .enter().append("g").call(force.drag);
+
+    node.append("circle")
+    .style("fill", function (d) {
+    return color(d.cluster);
+}).attr("r", function(d){return d.radius})
+
+
+
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
@@ -55,6 +71,9 @@
       
 
       })
+
+
+
 
 
       node.append("text")
