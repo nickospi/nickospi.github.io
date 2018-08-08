@@ -72,12 +72,10 @@
 
       })
 
-      var text = svgContainer.selectAll("text")
-                              .data(circleData)
-                              .enter()
-                              .append("text");
+      
 
-    	
+
+
     simulation.nodes(datapoints)
       .on('tick', ticked)
       
