@@ -1,7 +1,7 @@
 ,type,industry,organisation_name,lobbying_costs,EP_passes
 4,AISBL,0,Cefic,12300000.0,29
 7,ASBL,1,JA Europe,8124999.5,4
-8,Private Limited Company by guarantee without share capital use of 'Limited' exemption,1,Human Rights Project Management,7963657.0,1
+8,Private Limited Company by guarantee without share capital use of 'Limited' exemption,1,HR Project Management,7963657.0,1
 10,SA,2,FTI Consulting Belgium,6874999.5,34
 11,SA,2,Fleishman-Hillard,6874999.5,56
 13,AISBL,0,Insurance Europe,6624500.0,25
@@ -19,7 +19,7 @@
 30,eingetragener Verein nach deutschem Vereinsrecht,0,VCI,4374999.5,9
 31,aisbl (assn internationale sans but lucratif),0,BUSINESSEUROPE,4124999.5,24
 32,aisbl (Belgium),0,European Banking Fed,4124999.5,18
-35,b.v.b.a.,4,ExxonMobil Petroleum & Chemical,3874999.5,7
+35,b.v.b.a.,4,ExxonMobil,3874999.5,7
 37,Asbl,3,Friends of Europe,3624500.0,1
 39,Belgian registered branch,2,Kreab,3624500.0,32
 40,AISBL,1,EEB,3374999.5,11

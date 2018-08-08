@@ -13,7 +13,7 @@
 
 
 
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([40,100])
+  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([30,100])
 
 
 
@@ -73,10 +73,10 @@
       .attr("y", height / 2)
       .attr("text-anchor", "middle")
       .attr("fill", "#ffffff")
-      .attr('textLength',"70")
+      .attr('textLength',"50")
       .attr('lengthAdjust',"spacingAndGlyphs")
       .style('font-family', '"Open Sans", sans-serif')
-      .style('font-size', '12px')
+      .style('font-size', '14px')
 
 
       
