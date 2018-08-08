@@ -32,14 +32,7 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      d3.selectAll("circle")
-      .style('fill', function(d) {
-        if(d >= 2) {
-          return 'red';
-        } else {
-          return 'green';
-        }
-      })
+      .attr ('fill','lightblue')
       .on('click', function(d){
         console.log(d)
 
