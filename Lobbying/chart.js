@@ -13,6 +13,22 @@
 
 
 
+
+    var label = svg.selectAll("text")
+    .data(darapoints)
+    .enter()
+    .append("text")
+      .attr("class", "label")
+      .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+      .text(function(d) { return d.lobbying_costs;} );
+
+
+
+
+
+
+
+
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
   var simulation = d3.forceSimulation()
