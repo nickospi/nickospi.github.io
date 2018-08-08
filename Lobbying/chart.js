@@ -39,7 +39,7 @@
       {
           industry = d.industry.substring(0,4)
           if (industry === "0") {
-              return "red"
+              return "#1a2634"
           }
           else if (industry === "1") {
               return "#203e5f"
@@ -51,7 +51,7 @@
           return "#fee5b1"
           }
           else if (industry === "4") {
-          return "#eaeaea"
+          return "#655b46"
           }
       
 
