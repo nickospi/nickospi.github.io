@@ -12,7 +12,7 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
-  var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+  var colorScale = d3.scaleOrdinal().domain([0,4]).range([10,80])
 
 
 
