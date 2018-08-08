@@ -2,7 +2,10 @@
   var width = 1000,
     height = 700;
 
-    
+  var ilabel = "industry";		// what we want on the x axis
+  var olabel = "organisation_name";		// what we want on the y axis
+  
+  
   var svg = d3.select("#chart")
     .append("svg")
     .attr ("height",height)
@@ -36,9 +39,9 @@
       infobox.select("p.industry")
         .text( d.industry );
       infobox.select("p.xdata")
-        .text( xlabel + ": " + d[xlabel] );
+        .text( ilabel + ": " + d[ilabel] );
       infobox.select("p.ydata")
-        .text( ylabel + ": " + d[ylabel] );
+        .text( olabel + ": " + d[olabel] );
     }
   
     var mouseOut = function() {
