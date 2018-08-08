@@ -53,7 +53,7 @@
             return "#ffcc00"
           }
           else if (industry === "3") {
-          return "#fee5b1"
+          return "#B1CAFE"
           }
           else if (industry === "4") {
           return "#655b46"
