@@ -16,7 +16,7 @@
 
 
     var g = svg.selectAll(null)
-    .data(data)
+    .data(datapoints)
     .enter()
     .append("g")
     .attr("transform", function(d) {
