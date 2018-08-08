@@ -31,7 +31,7 @@
     }
   
     var mouseOver = function(d) {
-      var bubble = d3.select('svg');
+      var bubble = d3.select(this);
       bubble.attr("stroke", "#000")
         .attr("stroke-width", 4 );
       var infobox = d3.select(".infobox")
@@ -47,7 +47,7 @@
     var mouseOut = function() {
       var infobox = d3.select(".infobox");
       infobox.style("display", "none" )
-      var bubble = d3.select('svg');
+      var bubble = d3.select(this);
       bubble.attr("stroke", "none")
     }
     
