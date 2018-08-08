@@ -54,7 +54,7 @@
 
     d3.select("body")
     .selectAll("div")
-      .data(data)
+      .data(datapoints)
     .enter().append("div")
       .style("width", function(d) { return x(d) + "px"; })
       .text(function(d) { return d; })
@@ -67,7 +67,7 @@
 
 
 
-        
+
 
     var circles = svg.selectAll (".organisation_name")
       .data(datapoints)
