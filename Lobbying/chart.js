@@ -15,7 +15,21 @@
 
 
 
+    var g = svg.selectAll(null)
+    .data(data)
+    .enter()
+    .append("g")
+    .attr("transform", function(d) {
+        return "translate(" + projection([d.organisation_name]) + ")" ;
+    })
+
+
   
+
+
+
+
+
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
   var simulation = d3.forceSimulation()
@@ -60,6 +74,20 @@
       
 
       })
+
+
+
+      g.append("circle")
+      .attr("r", function(d) {return Math.sqrt(d.population * 0.00004);})
+      .attr("fill","red")
+      .attr("etc")
+    
+    g.append("text")
+      .text(function(d) { return d.city; })
+      //.attr("x"...)
+      //.attr("y"...)
+    
+
 
 
 
