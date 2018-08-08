@@ -55,6 +55,22 @@
       
 
       })
+
+
+      node.append("text")
+    .text(function (d) {
+    return d.organisation_name;
+})
+.attr("dx", -10)
+    .attr("dy", ".35em")
+    .text(function (d) {
+    return d.organisation_name
+})
+    .style("stroke", "gray");
+
+
+
+
     	
     simulation.nodes(datapoints)
       .on('tick', ticked)
