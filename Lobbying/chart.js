@@ -41,8 +41,17 @@
           if (industry === "0") {
               return "red"
           }
-          else {
-              return "black"
+          elif (industry === "1"); {
+              return "#203e5f"
+          }
+          elif (industry === "2"); {
+            return "#ffcc00"
+          }
+          elif (industry === "3"); {
+          return "#fee5b1"
+          }
+          elif (industry === "4"); {
+          return "#eaeaea"
           }
       
 
