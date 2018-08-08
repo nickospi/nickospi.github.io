@@ -58,32 +58,18 @@
 
       })
 
-
-
-
-
-
-
-
-
-      var g = svg.selectAll(null)
-      .data(datapoints)
-      .enter()
-      .append("g")
       .attr("transform", function(d) {
-          return [d.organisation_name] ;
-      })
+        return [d.organisation_name] ;
+    })
 
 
-      g.append("circle")
-      .attr("r", function(d) {return Math.sqrt(d.population * 0.00004);})
-      .attr("fill","red")
-      .attr("etc")
+
+
+
+
+
+
     
-    g.append("text")
-      .text(function(d) { return d.city; })
-      //.attr("x"...)
-      //.attr("y"...)
     
 
 
