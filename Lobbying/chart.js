@@ -1,6 +1,6 @@
 (function () {
-  var width = 1200,
-    height = 1200;
+  var width = 1000,
+    height = 1000;
 
   
   
@@ -13,7 +13,7 @@
 
 
 
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([40,160])
+  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([40,100])
 
 
 
