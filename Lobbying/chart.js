@@ -66,11 +66,13 @@
       .on('mouseover', function(d, i) {
         console.log("mouseover on", this);
         // make the mouseover'd element
-        // bigger and red
         d3.select(this)
           .transition()
           .duration(100)
-          .attr('stroke', '#ffffff');
+          .attr('stroke', '#ffffff')
+          .attr('stroke-width', '1');
+
+
       })
       .on('mouseout', function(d, i) {
         console.log("mouseout", this);
@@ -79,6 +81,10 @@
         d3.select(this)
           .transition()
           .duration(100)
+          
+          .attr('stroke', '#000000')
+          .attr('stroke-width', '0')
+          
           ;})
 
 
