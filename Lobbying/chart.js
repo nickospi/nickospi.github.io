@@ -13,14 +13,6 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
-
- 
-
-
-
-
-
-
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
@@ -34,14 +26,6 @@
     .await(ready)
   
   function ready (error, datapoints) {
-
-
-
-
-
-
-
-
 
     var circles = svg.selectAll (".organisation_name")
       .data(datapoints)
@@ -72,14 +56,17 @@
 
       })
     	
-   
-  
-
-
-
+    simulation.nodes(datapoints)
+      .on('tick', ticked)
+      
+    function ticked() {
+      circles
+        .attr("cx", function (d) {
+          return d.x
+        })
+        .attr("cy", function (d) {
+          return d.y
+        })
+  }
 }
-
-
-
-
 }) ();
