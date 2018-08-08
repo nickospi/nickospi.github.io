@@ -1,13 +1,13 @@
 ,type,industry,organisation_name,lobbying_costs,EP_passes
-4,AISBL,0,European Chemical Ind. Council,12300000.0,29
+4,AISBL,0,Cefic,12300000.0,29
 7,ASBL,1,JA Europe,8124999.5,4
 8,Private Limited Company by guarantee without share capital use of 'Limited' exemption,1,Human Rights Project Management,7963657.0,1
 10,SA,2,FTI Consulting Belgium,6874999.5,34
 11,SA,2,Fleishman-Hillard,6874999.5,56
 13,AISBL,0,Insurance Europe,6624500.0,25
 14,SPRL,2,Burson-Marsteller,6374999.5,50
-15,foundation,3,European Centre for Development Policy Management,6374999.5,1
-18,Non-profit assn,0,Eur. Fed of Pharmaceutical Inds.,5503206.0,5
+15,foundation,3,ECDPM,6374999.5,1
+18,Non-profit assn,0,EFPIA,5503206.0,5
 19,Inc.,4,Google,5374999.5,5
 22,SA (Belgium),2,Interel European Affairs,4874999.5,25
 24,ASBL,1,EUROCITIES,4624500.0,18
@@ -15,8 +15,8 @@
 26,"Royal Dutch Shell plc directly or indirectly holds shares in Shell Companies. Royal Dutch Shell plc is a public Limited Company with its registered offices in the United Kingdom and headquartered in The Hague, the Netherlands.",4,Shell Companies,4624500.0,6
 27,Company limited by guarantee incorporated in England and Wales,0,Financial Markets assn,4374999.5,6
 28,sprl,2,Teneo cabinet DN,4374999.5,27
-29,eingetragener Verein nach deutschem Recht,0,Verband Deutscher Maschinen- und Anlagenbau e.V.,4374999.5,4
-30,eingetragener Verein nach deutschem Vereinsrecht,0,Verband der Chemischen Industrie e.V.,4374999.5,9
+29,eingetragener Verein nach deutschem Recht,0,VDMA,4374999.5,4
+30,eingetragener Verein nach deutschem Vereinsrecht,0,VCI,4374999.5,9
 31,aisbl (assn internationale sans but lucratif),0,BUSINESSEUROPE,4124999.5,24
 32,aisbl (Belgium),0,European Banking Fed,4124999.5,18
 35,b.v.b.a.,4,ExxonMobil Petroleum & Chemical,3874999.5,7
@@ -26,26 +26,26 @@
 41,SE,4,BASF SE,3300000.0,9
 42,GmbH,4,Dow Europe GmbH,3124999.5,2
 43,Public Company,4,Equinor ASA,3124999.5,5
-44,assn,0,European Fund and Asset Management Assn.,3124999.5,11
+44,assn,0,EFAMA,3124999.5,11
 46,Aktiengesellschaft,4,Siemens AG,3230419.0,16
-47,eingetragener Verein,0,BDEW Bundesverband der Energie- und Wasserwirtschaft,2874999.5,6
+47,eingetragener Verein,0,BDEW,2874999.5,6
 48,Public Limited Company,4,BP p.l.c.,2874999.5,4
-49,eingetragener Verein,0,Bundesverband der Deutschen Industrie e.V.,2874999.5,11
-50,eingetragener Verein,0,Bundesverband Öffentlicher Banken Deutschlands,2874999.5,5
+49,eingetragener Verein,0,BDI,2874999.5,11
+50,eingetragener Verein,0,VÖB,2874999.5,5
 52,AISBL,1,European Youth Forum,2874999.5,13
-54,Corporation,4,General Electric Company,2874999.5,2
-58,Co. Ltd.,4,Huawei Technologies,2800000.0,5
+54,Corporation,4,General Electric,2874999.5,2
+58,Co. Ltd.,4,Huawei,2800000.0,5
 59,Inc.,2,APCO Worldwide,2624500.0,30
 60,"eingetragener Verein, e.V.",0,Bundesverband deutscher Banken e.V.,2624500.0,2
 62,GmbH,2,EUTOP Europe GmbH,2624500.0,21
 63,UK Limited Company,2,G Plus Ltd,2624500.0,22
-64,eingetragener Verein,0,Gesamtverband der Deutschen Versicherungswirtschaft e.V.,2624500.0,8
+64,eingetragener Verein,0,GDV,2624500.0,8
 65,SA,2,Grayling,2624500.0,14
 67,Aktiengesellschaft,4,Deutsche Bank AG,2744000.0,3
-68,Aktiengesellschaft,4,Volkswagen Aktiengesellschaft,2660000.0,4
+68,Aktiengesellschaft,4,Volkswagen,2660000.0,4
 69,Eingetragener Verein,0,Deutscher Industrie- und Handelskammertag e.V.,2568000.0,16
 70,Eingetragener Verein,0,Verband der Automobilindustrie,2500000.0,3
-71,registered assn,0,BVI Bundesverband Investment und Asset Management e.V.,2374999.5,3
+71,registered assn,0,BVI,2374999.5,3
 72,PLC,4,British American Tobacco,2374999.5,7
 73,LLP,2,Brunswick Group LLP,2374999.5,18
-74,a.i.s.b.l. (not for profit - internat. assn),1,Bureau Européen des Unions de Consommateurs,2374999.5,30
+74,a.i.s.b.l. (not for profit - internat. assn),1, BEUC,2374999.5,30
