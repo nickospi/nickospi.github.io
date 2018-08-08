@@ -76,7 +76,7 @@
       .attr('textLength',"70")
       .attr('lengthAdjust',"spacingAndGlyphs")
       .style('font-family', '"Open Sans", sans-serif')
-      .style('font-size', '14px')
+      .style('font-size', '12px')
 
 
       
