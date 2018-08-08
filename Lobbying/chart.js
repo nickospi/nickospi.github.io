@@ -34,7 +34,7 @@
       var infobox = d3.select(".infobox")
         .style("display", "block" );
       infobox.select("p.industry")
-        .text( d.state );
+        .text( d.industry );
       infobox.select("p.xdata")
         .text( xlabel + ": " + d[xlabel] );
       infobox.select("p.ydata")
@@ -53,7 +53,7 @@
     
     var infobox = d3.select(".infobox");
 	infobox.append("p")
-		.attr("class", "state" );
+		.attr("class", "industry" );
 	infobox.append("p")
 		.attr("class", "xdata" );
 	infobox.append("p")
