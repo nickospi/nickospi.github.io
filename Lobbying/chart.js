@@ -38,14 +38,13 @@
 
 
 
-    
+
 
     var label = svg.selectAll("text")
     .data(datapoints)
     .enter()
     .append("text")
       .attr("class", "label")
-      .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
       .text(function(d) { return d.lobbying_costs;} );
 
 
