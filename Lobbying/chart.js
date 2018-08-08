@@ -15,7 +15,7 @@
 
 
     var label = svg.selectAll("text")
-    .data(darapoints)
+    .data(datapoints)
     .enter()
     .append("text")
       .attr("class", "label")
