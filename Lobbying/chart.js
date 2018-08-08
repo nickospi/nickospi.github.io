@@ -58,9 +58,6 @@
 
       })
 
-      .attr("transform", function(d) {
-        return [d.organisation_name] ;
-    })
 
 
 
@@ -69,7 +66,6 @@
 
 
 
-    
     
 
 
