@@ -11,8 +11,6 @@
     .attr("transform", "translate(0,0)")
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
-  
-  var colorScale = d3.scaleOrdinal((d3.schemeCategory10))
 
 
 
@@ -37,11 +35,16 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .attr ('fill', function(d) {
-        return scaleOrdinal(d.industry);
-      })
-      .on('click', function(d){
-        console.log(d)
+      .attr ('fill', function(d)
+      {
+          industry = d.industry.substring(0,4)
+          if (industry === "0") {
+              return "red"
+          }
+          else {
+              return "black"
+          }
+      
 
       })
      
