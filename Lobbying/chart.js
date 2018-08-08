@@ -55,8 +55,7 @@
       
 
       })
-    .on( "mouseover", mouseOver )
-    .on( "mouseout", mouseOut );	
+    	
     simulation.nodes(datapoints)
       .on('tick', ticked)
       
