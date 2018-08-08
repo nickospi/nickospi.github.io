@@ -38,13 +38,16 @@
 
 
 
-
+    
 
     var label = svg.selectAll("text")
     .data(datapoints)
     .enter()
     .append("text")
       .attr("class", "label")
+      .attr('r', function(d) {
+        return radiusScale(d.lobbying_costs);
+      })
       .text(function(d) { return d.lobbying_costs;} );
 
 
