@@ -13,6 +13,24 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
+
+ 
+
+  var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("background", "#000")
+    .text("a simple tooltip");
+
+
+
+
+
+
+
+
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
@@ -26,6 +44,30 @@
     .await(ready)
   
   function ready (error, datapoints) {
+
+
+
+
+
+
+
+
+    d3.select("body")
+    .selectAll("div")
+      .data(data)
+    .enter().append("div")
+      .style("width", function(d) { return x(d) + "px"; })
+      .text(function(d) { return d; })
+      .on("mouseover", function(d){tooltip.text(d); return tooltip.style("visibility", "visible");})
+        .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+        .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+
+
+
+
+
+
+        
 
     var circles = svg.selectAll (".organisation_name")
       .data(datapoints)
@@ -68,5 +110,12 @@
           return d.y
         })
   }
+
+
+
 }
+
+
+
+
 }) ();
