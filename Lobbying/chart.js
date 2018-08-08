@@ -12,7 +12,7 @@
   
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
   
-
+  var color_scale = d3.scale.quantile().domain(all_areas).range(['violet', 'indigo', 'blue', 'green', 'yellow', 'orange', 'red']);
 
 
   var simulation = d3.forceSimulation()
@@ -36,7 +36,8 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
-      .attr ('fill','lightblue', 'red','green')
+      .style('fill', function(d) {
+        return color_scale(d['industry'])
       .on('click', function(d){
         console.log(d)
 
