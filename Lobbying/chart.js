@@ -2,8 +2,6 @@
   var width = 1000,
     height = 700;
 
-  var ilabel = "industry";		// what we want on the x axis
-  var olabel = "organisation_name";		// what we want on the y axis
   
   
   var svg = d3.select("#chart")
@@ -22,49 +20,7 @@
       return radiusScale(d.lobbying_costs) + 1;
     
     }))
-    var mouseMove = function() {
-      var infobox = d3.select(".infobox");
-      var coord = d3.svg.mouse(this)
-                  // now we just position the infobox roughly where our mouse is
-                  infobox.style("left", coord[0] + 15  + "px" );
-                  infobox.style("top", coord[1] + "px");
-    }
-  
-    var mouseOver = function(d) {
-      var bubble = d3.select(this);
-      bubble.attr("stroke", "#000")
-        .attr("stroke-width", 4 );
-      var infobox = d3.select(".infobox")
-        .style("display", "block" );
-      infobox.select("p.industry")
-        .text( d.industry );
-      infobox.select("p.xdata")
-        .text( ilabel + ": " + d[ilabel] );
-      infobox.select("p.ydata")
-        .text( olabel + ": " + d[olabel] );
-    }
-  
-    var mouseOut = function() {
-      var infobox = d3.select(".infobox");
-      infobox.style("display", "none" )
-      var bubble = d3.select(this);
-      bubble.attr("stroke", "none")
-    }
-    
-    d3.select("svg")
-    .on("mousemove", mouseMove );
-    
-    var infobox = d3.select(".infobox");
-	infobox.append("p")
-		.attr("class", "industry" );
-	infobox.append("p")
-		.attr("class", "xdata" );
-	infobox.append("p")
-    .attr("class", "ydata" );
-    
-
-    
-
+   
   d3.queue()
     .defer(d3.csv,'lobby.csv')
     .await(ready)
