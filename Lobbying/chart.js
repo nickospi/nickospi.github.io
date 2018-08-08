@@ -62,6 +62,28 @@
 
       })
 
+
+      .on('mouseover', function(d, i) {
+        console.log("mouseover on", this);
+        // make the mouseover'd element
+        // bigger and red
+        d3.select(this)
+          .transition()
+          .duration(100)
+          .attr('stroke', '#ffffff');
+      })
+      .on('mouseout', function(d, i) {
+        console.log("mouseout", this);
+        // return the mouseover'd element
+        // to being smaller and black
+        d3.select(this)
+          .transition()
+          .duration(100)
+          ;})
+
+
+
+
       var labels = svg.selectAll (".organisation_name")
       .data(datapoints)
       .enter().append('text')
