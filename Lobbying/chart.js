@@ -1,7 +1,6 @@
 (function () {
   var width = 1000,
     height = 700;
-    var c10 = d3.scale.category10();
 
     
   var svg = d3.select("#chart")
@@ -59,4 +58,4 @@
         })
   }
 }
-});
+}) ();
