@@ -60,44 +60,6 @@
 
 
 
-
-
-
-      
-      .attr("title",  function(d) { return d["lobbying_costs"]+": "+Math.round(d["1990"]); })
-      .on("mouseover", function(d) {
-          d3.select(this).style("fill","#FC0");})
-      .on("mouseout", function(d) {
-          d3.select(this).style("fill","steelblue");});
-
-labels.selectAll("labels")
-.data(csv)
-.enter()
-.append("svg:text")
-  .attr("x", d3.forceX(width / 2))
-  .attr("y", d3.forceY(height / 2))
-  .attr("dy", "0.3em")
-  .attr("text-anchor", "middle")
-  .text(function(d) { return Math.round(d["1990"]); });
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
     	
     simulation.nodes(datapoints)
       .on('tick', ticked)
