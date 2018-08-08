@@ -10,10 +10,6 @@
     .append("g")
     .attr("transform", "translate(0,0)")
   
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
-  
-  var color_scale = d3.scale.quantile().domain(all_areas).range(['violet', 'indigo', 'blue', 'green', 'yellow', 'orange', 'red']);
-
 
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
@@ -36,8 +32,14 @@
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
+      d3.selectAll("circle")
       .style('fill', function(d) {
-        return color_scale(d['industry'])
+        if(d >= 2) {
+          return 'red';
+        } else {
+          return 'green';
+        }
+      })
       .on('click', function(d){
         console.log(d)
 
