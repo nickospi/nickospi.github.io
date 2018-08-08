@@ -10,6 +10,8 @@
     .append("g")
     .attr("transform", "translate(0,0)")
   
+ 
+
 
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
