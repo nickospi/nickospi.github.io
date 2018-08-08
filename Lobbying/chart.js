@@ -15,6 +15,8 @@
 
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([10,80])
 
+
+
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
@@ -40,13 +42,19 @@
 
 
 
+    var labels = svg.selectAll (".organisation_name")
+      .data(datapoints)
+      .enter().append('text')
+      .attr('class', "organisation_name")
+      .text(function(d) {
+        return d.organisation_name;
+      })
 
 
-
-    var circles = svg.selectAll (".organisation_name")
+    var circles = svg.selectAll (".organisation_circle")
       .data(datapoints)
       .enter().append('circle')
-      .attr('class', "organisation_name")
+      .attr('class', "organisation_circle")
       .attr('r', function(d) {
         return radiusScale(d.lobbying_costs);
       })
@@ -73,7 +81,10 @@
       })
 
       
-
+datapoints.forEach(function(d) {
+  d.x = width / 2
+  d.y = height / 2
+})
 
 
     simulation.nodes(datapoints)
