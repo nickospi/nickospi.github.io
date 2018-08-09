@@ -13,7 +13,7 @@
 
 
 
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([30,100])
+  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([35,100])
 
 
 
@@ -61,7 +61,12 @@
       
 
       })
-
+      .on('click', function(d, i) {
+        d3.select(this)
+          .transition()
+          .attr('stroke', '#ff0000')
+          .attr('stroke-width', '10');
+      })
 
       .on('mouseover', function(d, i) {
         console.log("mouseover on", this);
@@ -81,7 +86,6 @@
         d3.select(this)
           .transition()
           .duration(100)
-          
           .attr('stroke', '#000000')
           .attr('stroke-width', '0')
           
@@ -103,8 +107,8 @@
       .attr("fill", "#ffffff")
       .attr('textLength',"50")
       .attr('lengthAdjust',"spacingAndGlyphs")
-      .style('font-family', '"Open Sans", sans-serif')
-      .style('font-size', '14px')
+      .style('font-family', '"Helevetica Neue", sans-serif')
+      .style('font-size', '12px')
 
 
       
