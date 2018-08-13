@@ -16,6 +16,13 @@
   var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([35,100])
 
 
+  
+
+
+
+
+
+
 
   var simulation = d3.forceSimulation()
     .force("x", d3.forceX(width / 2).strength(0.05))
@@ -61,28 +68,59 @@
       
 
       })
+
+
+
+
+
+
+      
       .on('click', function(d, i) {
+        console.log("clicking on", this);
         d3.select(this)
           .transition()
-          .attr('stroke', '#ff0000')
-          .attr('stroke-width', '10');
+          .duration(100)
+          //.attr('fill', '#ff0000')
+          
+          {
+            
+            circles
+              .attr("cx", function (d, i) {
+                d3.select(clicklabels.nodes()[i]).attr("x", d.x)
+                return d.x
+              })
+              .attr("cy", function (d, i) {
+                d3.select(clicklabels.nodes()[i]).attr("y", d.y)
+                return d.y
+              })
+        }
+
+
+
+
+
       })
+
+
+
+
+
+
+
+
 
       .on('mouseover', function(d, i) {
         console.log("mouseover on", this);
-        // make the mouseover'd element
         d3.select(this)
           .transition()
           .duration(100)
           .attr('stroke', '#ffffff')
-          .attr('stroke-width', '1');
+          .attr('stroke-width', '2');
 
 
       })
       .on('mouseout', function(d, i) {
         console.log("mouseout", this);
-        // return the mouseover'd element
-        // to being smaller and black
         d3.select(this)
           .transition()
           .duration(100)
@@ -109,6 +147,30 @@
       .attr('lengthAdjust',"spacingAndGlyphs")
       .style('font-family', '"Helevetica Neue", sans-serif')
       .style('font-size', '12px')
+
+
+      
+
+
+      var clicklabels = svg.selectAll (".lobbying_costs")
+      .data(datapoints)
+      .enter().append('text')
+      .attr('class', "lobbying_costs")
+      .text(function(d) {
+        return 'Lobbying Costs:'+d.lobbying_costs;
+      })
+      .attr("x", width)
+      .attr("y", height)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#ffffff")
+      .attr('textLength',"50")
+      .attr('lengthAdjust',"spacingAndGlyphs")
+      .style('font-family', '"Helevetica Neue", sans-serif')
+      .style('font-size', '12px')
+
+
+
+
 
 
       
