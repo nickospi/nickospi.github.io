@@ -128,6 +128,34 @@
       .style('font-size', '12px')
 
 
+
+
+      var $window = $(window);
+      var $elem = $(".animation")
+      
+      function isScrolledIntoView($elem, $window) {
+          var docViewTop = $window.scrollTop();
+          var docViewBottom = docViewTop + $window.height();
+      
+          var elemTop = $elem.offset().top;
+          var elemBottom = elemTop + $elem.height();
+      
+          return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+      }
+      $(document).on("scroll", function () {
+          if (isScrolledIntoView($elem, $window)) {
+              $elem.addClass("animate")
+          }
+      });
+
+
+
+
+
+
+
+
+      
       
 datapoints.forEach(function(d) {
   d.x = width / 2
@@ -156,14 +184,6 @@ datapoints.forEach(function(d) {
 }
 }) ()
 
-
-jQuery("#chart").one("inview", function(event, isInView) {
-  if (isInView) {
-      setTimeout(function(){
-            chart.render();
-      }, 300);
-  }
-})
 
 
 ;

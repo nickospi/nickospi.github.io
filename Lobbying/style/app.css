@@ -132,7 +132,9 @@ sub-font
     font-weight: 400;
 }
 
-
+.animation.animate {
+    animation: pulse 5s infinite;
+}
 
 
 /*HTML Horizonal Legend*/
