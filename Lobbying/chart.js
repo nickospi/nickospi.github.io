@@ -42,7 +42,7 @@
     .style("visibility", "hidden")
     .style("background", "#ffffff")
     .text("a simple tooltip")
-    .style('font-family', '"Helevetica Neue", sans-serif')
+    .style('font-family', "Roboto", sans-serif)
  
 
 
@@ -123,7 +123,7 @@
       .attr("fill", "#ffffff")
       .attr('textLength',"50")
       .attr('lengthAdjust',"spacingAndGlyphs")
-      .style('font-family', '"Helevetica Neue", sans-serif')
+      .style('font-family', "Roboto", sans-serif)
       .style('font-size', '12px')
 
 
