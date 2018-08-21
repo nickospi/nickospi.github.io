@@ -2,20 +2,15 @@
   var width = 1000,
     height = 1000;
 
-    var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function(d) {
-      return "<strong>" +d.organisation_name+":</strong> <span style='color:red'>"+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."+"</span>";
-    })
+   
   
-    var svg = d3.select("#chart").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+  var svg = d3.select("#chart")
+    .append("svg")
+    .attr ("height",height)
+    .attr ('width', width)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .attr("transform", "translate(0,0)")
 
-    svg.call(tip)
 
 
   var radiusScale = d3.scaleSqrt().domain([2374999,12300000]).range([30,100])
@@ -35,6 +30,23 @@
     .await(ready)
   
   function ready (error, datapoints) {
+
+
+
+
+
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("background", "#ffffff")
+    .text("a simple tooltip")
+    .style('font-family', '"Helevetica Neue", sans-serif')
+ 
+
+
+
 
 
 
@@ -68,10 +80,12 @@
       })
 
 
+
+
       .on("mouseover", function(d,i){
       
       console.log("mouseover on", this)
-        tip.show
+         tooltip.text(d.organisation_name+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."); return tooltip.style("visibility", "visible")
          && d3.select(this)
            .transition()
            .duration(100)
