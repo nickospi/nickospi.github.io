@@ -46,10 +46,6 @@
  
 
 
-
-
-
-
     var circles = svg.selectAll (".organisation_circle")
       .data(datapoints)
       .enter().append('circle')
@@ -81,7 +77,6 @@
 
 
 
-
       .on("mouseover", function(d,i){
       
       console.log("mouseover on", this)
@@ -93,8 +88,6 @@
            .attr('stroke-width', '2')
            
       ;})
-
-
 
 
       .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
@@ -126,16 +119,8 @@
       .style('font-family', "Roboto", sans-serif)
       .style('font-size', '12px')
 
-
-
-
-
-
       var $window = $(window);
       var $elem = $(".animation")
-      
-
-
       
       function isScrolledIntoView($elem, $window) {
           var docViewTop = $window.scrollTop();
@@ -153,13 +138,6 @@
       });
 
 
-
-
-
-
-
-
-      
       
 datapoints.forEach(function(d) {
   d.x = width / 2
