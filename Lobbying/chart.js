@@ -2,15 +2,20 @@
   var width = 1000,
     height = 1000;
 
-   
+    var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<strong>" +d.organisation_name+":</strong> <span style='color:red'>"+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."+"</span>";
+    })
   
-  var svg = d3.select("#chart")
-    .append("svg")
-    .attr ("height",height)
-    .attr ('width', width)
+    var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(0,0)")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
+    svg.call(tip)
 
 
   var radiusScale = d3.scaleSqrt().domain([2374999,12300000]).range([30,100])
@@ -30,23 +35,6 @@
     .await(ready)
   
   function ready (error, datapoints) {
-
-
-
-
-
-    var tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("background", "#ffffff")
-    .text("a simple tooltip")
-    .style('font-family', '"Helevetica Neue", sans-serif')
- 
-
-
-
 
 
 
@@ -80,13 +68,10 @@
       })
 
 
-
-
       .on("mouseover", function(d,i){
       
-      console.log("mouseover on", this)
-         tooltip.text("<strong>" +d.organisation_name+":</strong> <span style='color:red'>"+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."+"</span>"); return tooltip.style("visibility", "visible")
-         && d3.select(this)
+      console.log("mouseover on", tip.show)
+           d3.select(this)
            .transition()
            .duration(100)
            .attr('stroke', '#ffffff')
@@ -97,9 +82,8 @@
 
 
 
-      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
       .on("mouseout", function(d,i){
-        console.log("mouseout", this)    
+        console.log("mouseout", tip.hide)    
         return tooltip.style("visibility", "hidden")
         && d3.select(this)
                   .transition()
