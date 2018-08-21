@@ -8,7 +8,7 @@ body {
 
 /* choose a light or dark theme to add to the body tag. */
 .dark-theme {
-    background-color: #181414;
+    background-color: #7e98b0;
     color: #fcfbfb;   
 }
 .light-theme {
