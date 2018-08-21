@@ -17,9 +17,9 @@
 
 
 
-  var simulation = d3.forceSimulaion()
-    .force("x", d3.forceX(width/2 ).strength(0.6))
-    .force("y", d3.forceY(height/2).strength(0.6))
+  var simulation = d3.forceSimulation()
+    .force("x", d3.forceX(width / 2).strength(0.05))
+    .force("y", d3.forceY(height / 2).strength(0.05))
     .force("collide", d3.forceCollide(function(d){
       return radiusScale(d.lobbying_costs) + 1;
     
@@ -130,8 +130,13 @@
 
 
 
+
+
       var $window = $(window);
       var $elem = $(".animation")
+      
+
+
       
       function isScrolledIntoView($elem, $window) {
           var docViewTop = $window.scrollTop();
