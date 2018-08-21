@@ -70,8 +70,9 @@
 
       .on("mouseover", function(d,i){
       
-      console.log("mouseover on", tip.show)
-           d3.select(this)
+      console.log("mouseover on", this)
+        tip.show
+         && d3.select(this)
            .transition()
            .duration(100)
            .attr('stroke', '#ffffff')
@@ -82,8 +83,9 @@
 
 
 
+      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
       .on("mouseout", function(d,i){
-        console.log("mouseout", tip.hide)    
+        console.log("mouseout", this)    
         return tooltip.style("visibility", "hidden")
         && d3.select(this)
                   .transition()
