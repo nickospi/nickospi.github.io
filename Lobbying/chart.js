@@ -13,7 +13,7 @@
 
 
 
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([35,100])
+  var radiusScale = d3.scaleSqrt().domain([2374999,12300000]).range([30,100])
 
 
 
