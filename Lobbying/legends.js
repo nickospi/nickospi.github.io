@@ -134,7 +134,6 @@ d3.edge.reuselegend = function module() {
 }
 
 var rlegend = d3.edge.reuselegend()
-//.datum must be used and not data...data will only return the first item
 d3.select(".legend7").datum(legendVals).call(rlegend)
 
 })
