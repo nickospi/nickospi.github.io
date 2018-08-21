@@ -132,11 +132,61 @@ sub-font
     font-weight: 400;
 }
 
+.animation.animate {
+    animation: pulse 5s infinite;
+}
 
 
+/*HTML Horizonal Legend*/
+.industry {
+    margin: 0 !important;
+}
+.key-dot {
+    display: inline-block;
+    height: 10px;
+    margin-right: .5em;
+    width: 10px;
+}
+
+.trade { height: 20px;
+    width: 20px;
+    background: #00293c;
+     margin-right: .5em;
+    border-radius: 50%;
+    display: inline-block;}
+.ngo { height: 20px;
+    width: 20px;
+    background: #257985;
+    margin-right: .5em;
+    border-radius: 50%;
+    display: inline-block;}
+.cons{  height: 20px;
+    width: 20px;
+    background: #5ea8a7;
+    margin-right: .5em;
+    border-radius: 50%;
+    display: inline-block;}
+.tanks{height: 20px;
+    width: 20px; 
+    background: #484748;
+    margin-right: .5em;
+    border-radius: 50%;
+    display: inline-block;}
+.comps{height: 20px;
+    width: 20px; 
+    background: #ff4447;
+    margin-right: .5em;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
 
 
-
-
-
+#legend2{
+    overflow:hidden;
+}
+.legend2 {
+    float:left;
+    margin-right: 1em;
+}
 
