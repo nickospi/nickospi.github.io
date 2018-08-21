@@ -85,14 +85,13 @@
       .on("mouseover", function(d,i){
       
       console.log("mouseover on", this)
-         tooltip.text(d.organisation_name+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."); return tooltip.style("visibility", "visible")
+         tooltip.text("<strong>" +d.organisation_name+":</strong> <span style='color:red'>"+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."+"</span>"); return tooltip.style("visibility", "visible")
          && d3.select(this)
            .transition()
            .duration(100)
            .attr('stroke', '#ffffff')
            .attr('stroke-width', '2')
            
-      
       ;})
 
 
