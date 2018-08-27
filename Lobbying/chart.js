@@ -91,12 +91,12 @@
 
       }
     
-      .call(d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended))
-
+      
     )
+    .call(d3.drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended))
 
 
 
