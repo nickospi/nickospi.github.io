@@ -1,194 +1,431 @@
 (function () {
-  var width = 100,
-    height = 100;
-
-   
-  
-  var svg = d3.select("#chart")
-    .append("svg")
-    .attr ("height",height)
-    .attr ('width', width)
-    .append("g")
-    .attr("transform", "translate(0,0)")
 
 
-
-  var radiusScale = d3.scaleSqrt().domain([2374999.5,12300000.0]).range([35,100])
-
-
-
-  var simulation = d3.forceSimulation()
-    .force("x", d3.forceX(width / 2).strength(0.05))
-    .force("y", d3.forceY(height / 2).strength(0.05))
-    .force("collide", d3.forceCollide(function(d){
-      return radiusScale(d.lobbying_costs) + 1;
-    
-    }))
-   
-  d3.queue()
-    .defer(d3.csv,'lobby.csv')
-    .await(ready)
-  
-  function ready (error, datapoints) {
-
-
-
-
-
-    var tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("background", "#282828")
-    .text("a simple tooltip")
-    .style('font-family', '"Helevetica Neue", sans-serif')
- 
-
-
-
-
-
-
-    var circles = svg.selectAll (".organisation_circle")
-      .data(datapoints)
-      .enter().append('circle')
-      .attr('class', "organisation_circle")
-      .attr('r', function(d) {
-        return radiusScale(d.lobbying_costs);
-      })
-      .attr ('fill', function(d)
+    var decades = [   
       {
-          industry = d.industry.substring(0,4)
-          if (industry === "0") {
-              return "#00293c"
-          }
-          else if (industry === "1") {
-              return "#257985"
-          }
-          else if (industry === "2") {
-            return "#5ea8a7"
-          }
-          else if (industry === "3") {
-          return "#484748"
-          }
-          else if (industry === "4") {
-          return "#ff4447"
-          }
-      
+        name: '60s',
+        songs: 48,
 
-      })
+      },
+      {
+        name: '70s',
+        songs: 89,
 
-
-
-
-      .on("mouseover", function(d,i){
-      
-      console.log("mouseover on", this)
-         tooltip.text(d.organisation_name+' has spent'+' € '+d.lobbying_costs+" in EU lobbying costs."); return tooltip.style("visibility", "visible")
-         && d3.select(this)
-           .transition()
-           .duration(100)
-           .attr('stroke', '#ffffff')
-           .attr('stroke-width', '2')
-           
-      
-      ;})
-
-
-
-
-      .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-      .on("mouseout", function(d,i){
-        console.log("mouseout", this)    
-        return tooltip.style("visibility", "hidden")
-        && d3.select(this)
-                  .transition()
-                  .duration(100)
-                  .attr('stroke', '#000000')
-                  .attr('stroke-width', '0')
-                  
-                  ;})
-
-
-      var labels = svg.selectAll (".organisation_label")
-      .data(datapoints)
-      .enter().append('text')
-      .attr('class', "organisation_label")
-      .text(function(d) {
-        return d.organisation_label;
-      })
-      .attr("x", width / 2)
-      .attr("y", height / 2)
-      .attr("text-anchor", "middle")
-      .attr("fill", "#ffffff")
-      .attr('textLength',"50")
-      .attr('lengthAdjust',"spacingAndGlyphs")
-      .style('font-family', '"Helevetica Neue", sans-serif')
-      .style('font-size', '12px')
-
-
-
-
-
-
-      var $window = $(window);
-      var $elem = $(".animation")
-      
-
-
-      
-      function isScrolledIntoView($elem, $window) {
-          var docViewTop = $window.scrollTop();
-          var docViewBottom = docViewTop + $window.height();
-      
-          var elemTop = $elem.offset().top;
-          var elemBottom = elemTop + $elem.height();
-      
-          return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+      },
+      {
+        name: '80s',
+        songs: 39,
+      },
+      {
+        name: '90s',
+        songs: 62,
+      },
+      {
+        name: '00s',
+        songs: 25,
+      },
+      {
+        name: '10s',
+        songs: 32,
       }
-      $(document).on("scroll", function () {
-          if (isScrolledIntoView($elem, $window)) {
-              $elem.addClass("animate")
-          }
-      });
+    
+  ]  
+var height = 200,
+width = 1000,
+padding = 100;
+
+var svg = d3.select("body")
+.append("svg")
+.attr("height", height + padding * 2)
+.attr("width", width + padding * 2)
+.append("g")
+.attr("transform", "translate(100 100)")
 
 
+var names = decades.map(function(d) { return d.name })
+var songNames = decades.map(function(d) { return +d.songs }),
+minPop = d3.min(songNames),
+maxPop = d3.max(songNames);
+
+var maxSongs = 295
+
+var xPositionScaleName = d3.scalePoint().domain(names).range([0, width])
+var colorScale = d3.scaleLinear().domain([minPop, maxPop]).range(['#ffffff','#e7298a'])
+var colorScaleName = d3.scaleOrdinal().domain(names).range(['#66c2a5','#fc8d62','#8da0cb','#e78ac3','#a6d854'])
 
 
+var defaultRadius = 20;
+var maxRadius = 100;
+var sizeScale = d3.scaleSqrt().domain([0, maxPop]).range([0, maxRadius])
+
+var xPositionScalesongs = d3.scaleLinear().domain([0, maxPop]).range([0, width])
 
 
+var nline = svg.append("line")
+.attr("x1", 0)
+.attr("x2", width)
+.attr("y1", height / 2)
+.attr("y2", height / 2)
+.attr("stroke", "white")
+.attr("opacity", 0)
 
 
-      
-      
-datapoints.forEach(function(d) {
-  d.x = width / 2
-  d.y = height / 2
+var ngroups = svg.selectAll("g")
+.data(decades)
+.enter().append("g")
+.attr("transform", "translate(" + (width / 2) + " " + (height / 2) + ")")
+
+
+var ntext = ngroups.append("text")
+.text(function(d) {
+return d.name
 })
+.attr("text-anchor", "middle")
+.attr("opacity", 0)
+.attr("dy", defaultRadius + 40)
+
+var nlabeltext = ngroups.append("text")
+.text(function(d) {
+return d.songs+" song lyrics"
+})
+.attr("text-anchor", "middle")
+.attr("opacity", 0)
+.attr("dy", defaultRadius + 40)
 
 
-    simulation.nodes(datapoints)
-      .on('tick', ticked)
-      
-    function ticked() {
-      console.log(labels.length)
-      circles
-      
-        .attr("cx", function (d, i) {
-          d3.select(labels.nodes()[i]).attr("x", d.x)
-          return d.x
-        })
-        .attr("cy", function (d, i) {
-          d3.select(labels.nodes()[i]).attr("y", d.y)
-          return d.y
-        })
+// var textZero = groups.append("text")
+//   .text(function(d) {
+//     return maxSongs+ " song lyrics written by Bowie and dating from the 60's up to 2015 have been analyzed.[Hit Space]"
+//   })
+//   .attr("text-anchor", "middle")
+//   .attr("opacity", 1)
+//   .attr("dy", defaultRadius*3 + 40)
 
-      
-  }
-}
-}) ()
 
+var ncircles = ngroups.append("circle")
+.attr("r", defaultRadius*3)
+.attr("fill", 'white')
+.style("fill-opacity", 0)
+
+
+
+//function circleTransition() { 
+
+
+// var plsCircles = groups.append("circle")
+//   .attr("r", defaultRadius*2)
+//   .attr("fill", 'white')
+
+//   repeat();
+
+// function repeat() {
+//   plsCircles
+//     .transition()        
+//     .duration(500)      
+//     .attr("r", defaultRadius*2)
+//     .attr("fill","white")
+
+
+//     .transition()       
+//     .duration(500)      
+//     .attr("r", defaultRadius)
+//     .attr("fill","white")
+//     .on("end", repeat);  
+// };
+
+// };
+
+// circleTransition();
+
+
+
+// var steps = [
+//   step0,
+//   step1,
+//   step2
+// step3
+// step4,
+//step5,
+//step6
+//]
+
+// <!-- 
+// var imgsix = svg.append("svg:image")
+// .attr("xlink:href", "style/images/sixties.png")
+// .attr("width", "80")
+// .attr("height", "80")
+// .attr('x',  width/4-200)
+// .attr("visibility","hidden")
+
+// var imgseven = svg.append("svg:image")
+// .attr("xlink:href", "style/images/seventies.png")
+// .attr("width", "80")
+// .attr("height", "80")
+// .attr('x', width/4)
+// .attr("visibility","hidden")
+
+// var imgeight = svg.append("svg:image")
+// .attr("xlink:href", "style/images/eighties.png")
+// .attr("width", "80")
+// .attr("height", "80")
+// .attr('x', width/4+200)
+// .attr("visibility","hidden")
+
+// var imgnine = svg.append("svg:image")
+// .attr("xlink:href", "style/images/nineties.png")
+// .attr("width", "80")
+// .attr("height", "80")
+// .attr('x', width/4+400)
+// .attr("visibility","hidden")
+
+
+// var imgten = svg.append("svg:image")
+// .attr("xlink:href", "style/images/zeroes.png")
+// .attr("width", "80")
+// .attr("height", "80")
+// .attr('x', width/4+600)
+// .attr("visibility","hidden")
+
+
+// var currentStep = 0
+
+// d3.select("body").on("keyup", function() {
+//   console.log(d3.event.code)
+//   if(d3.event.code === "Space" || d3.event.code === "ArrowRight") {
+//     currentStep = (currentStep + 1) % 3
+//     steps[currentStep].apply()
+//   }
+//   if(d3.event.code === "ArrowLeft") {
+//     currentStep = currentStep < 1 ? 3 : currentStep - 1
+//     steps[currentStep].apply()
+//   }
+// })
+
+// function makeTranslate(x, y) {
+//   return "translate(" + x + " " + y + ")"
+// }
+
+
+// function step0() {
+//   line.transition().attr("opacity", 0)
+
+//   groups.transition()
+//     .duration(1000)
+//     .attr("transform", makeTranslate(width / 2, height / 2))
+
+//   circles.transition()
+//     .duration(1000)
+//     .attr("r",defaultRadius*3)
+//     .style("fill-opacity", 1)
+//     .style("fill", '#ffffff')
+//     .style("stroke-width", 0)
+
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("opacity", 0)
+
+//   textZero.transition()
+//     .duration(500)
+//     .attr("text-anchor", "middle")
+//     .attr("opacity", 1)
+//     .attr("dx", 0)
+//     .attr("dy", defaultRadius*3 + 40)
+
+
+// labeltext.transition()
+// .duration(1000)
+//     .attr("opacity", 0)
+//     .attr("dy", function(d) {
+//       return sizeScale(d.songs) + 40
+//     })
+//     .attr("dx", 0)
+//     .attr("text-anchor", "middle")
+
+
+
+// }
+
+// function step1() {
+//   line.transition().attr("opacity", 2)
+
+
+// textZero.transition()
+//     .duration(250)
+//     .attr("text-anchor", "middle")
+//     .attr("opacity", 0)
+//     .attr("dx", 0)
+//     .attr("dy", defaultRadius*3 + 40)
+
+
+//   groups.transition()
+//     .duration(1000)
+//     .attr("transform", function(d) {
+//       return makeTranslate(xPositionScaleName(d.name), height / 2)
+//     })
+
+//   circles.transition()
+//     .duration(1000)
+//     .attr("r", defaultRadius*2)
+//     .style("fill-opacity", 1)
+//     .style("fill", '#ffffff')
+//     .style("stroke-width", 0)
+
+
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("text-anchor", "middle")
+//     .attr("opacity", 1)
+//     .attr("dx", 0)
+//     .attr("dy", defaultRadius*2 + 40)
+
+
+// imgsix
+// .attr("visibility","show")
+// imgseven
+// .attr("visibility","show")
+// imgeight
+// .attr("visibility","show")
+// imgnine
+// .attr("visibility","show")
+// imgten
+// .attr("visibility","show")
+
+
+// }
+
+nline.attr("opacity", 2)
+
+ngroups.attr("transform", function(d) {
+return makeTranslate(xPositionScaleName(d.name), height / 2)
+ })
+
+ncircles.attr("r", function(d) {
+return sizeScale(d.songs)
+ })
+ .style("fill-opacity", 1)
+ .style("fill", '#ffffff')
+ .style("stroke-width", 0)
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("opacity", 0)
+//     .attr("dy", function(d) {
+//       return sizeScale(d.songs) + 40
+//     })
+//     .attr("dx", 0)
+//     .attr("text-anchor", "middle")
+
+
+nlabeltext
+ .attr("opacity", 1)
+ .attr("dy", function(d) {
+   return sizeScale(d.songs) + 40
+ })
+ .attr("dx", 0)
+ .attr("text-anchor", "middle")
+
+
+// imgsix
+// .attr("visibility","hidden")
+// imgseven
+// .attr("visibility","hidden")
+// imgeight
+// .attr("visibility","hidden")
+// imgnine
+// .attr("visibility","hidden")
+// imgten
+// .attr("visibility","hidden")
+
+
+// }
+
+
+
+// function step4() {
+//   line.transition().attr("opacity", 0)
+
+//   groups.transition()
+//     .duration(1000)
+//     .attr("transform", function(d) {
+//       var y = height - sizeScale(d.songs) - maxRadius
+//       return makeTranslate(width / 2, y)
+//     })
+
+//   circles.transition()
+//     .duration(1000)
+//     .attr("r", function(d) {
+//       return sizeScale(d.songs)
+//     })
+//     .style("fill-opacity", 0)
+//     .style("fill", '#ffffff')
+//     .style("stroke-width", 1)
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("opacity", 1)
+//     .attr("dy", 0)
+//     .attr("text-anchor", "right")
+//     .attr("dx", function(d) {
+//       return sizeScale(d.songs) + 5
+//     })
+// } --> -->
+
+// function step4() {
+//   line.transition().attr("opacity", 1)
+
+//   groups.transition()
+//     .duration(1000)
+//     .attr("transform", function(d) {
+//       return makeTranslate(xPositionScalesongs(d.songs), height / 2)
+//     })
+
+//   circles.transition()
+//     .duration(1000)
+//     .attr("r", defaultRadius / 2)
+//     .style("fill-opacity", 1)
+//     .style("fill", '#ffffff')
+//     .style("stroke-width", 0)
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("opacity", 1)
+//     .attr("dy", defaultRadius / 2 + 20)
+//     .attr("text-anchor", "middle")
+//     .attr("dx", 0)
+
+// }
+
+// function step6() {
+//   line.transition().attr("opacity", 1)
+
+//   groups.transition()
+//     .duration(1000)
+//     .attr("transform", function(d) {
+//       return makeTranslate(xPositionScalesongs(d.songs), height / 2)
+//     })
+
+//   circles.transition()
+//     .duration(1000)
+//     .attr("r", defaultRadius / 2)
+//     .style("fill-opacity", 1)
+//     .style("fill", function(d) {
+//       return colorScaleName(d.name)
+//     })
+//     .style("stroke-width", 0)
+
+//   text.transition()
+//     .duration(1000)
+//     .attr("opacity", 1)
+//     .attr("dy", defaultRadius / 2 + 20)
+//     .attr("text-anchor", "middle")
+//     .attr("dx", 0)
+
+// }
+
+
+}())
 
 
 ;
