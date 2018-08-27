@@ -86,9 +86,17 @@
           else if (industry === "4") {
           return "#ff4447"
           }
+        
       
 
-      })
+      }
+    
+      .call(d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended))
+
+    )
 
 
 
