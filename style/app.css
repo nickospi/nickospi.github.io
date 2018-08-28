@@ -24,8 +24,63 @@ body {
 .image {
     width: 100%;
 }
+.handle  {
+    font-size: 1.25rem;
+    line-height: 0.75;
+    margin-top: 1.75rem;
+    font-weight: 400;
+    color: black !important;
+}
+
+.rule {
+    border-style: solid;
+    border-top: 1px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-color: darkgrey;
+}
+
+.section {
+    font-size: 1.25rem;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}
+
+.link {
+    color: black !important;
+}
+
+.footer  {
+    font-size: 1rem;
+    line-height: 0.75;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    font-weight: 400;
+}
 
 
+
+
+
+.headline {
+    font-size: 3.5rem;
+    line-height: 0.9;
+    margin-bottom: 0.25rem;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.body-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    margin-bottom: 3.75rem;
+
+}
 
 /*
 super-font
